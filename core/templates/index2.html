@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Loop Index</title>
+</head>
+<body>
+    <h1>Exemplo de Loop Index</h1>
+    <ul>
+        {% for num in numeros %}
+            {% with index=forloop.counter %}
+                <li>Item {{ index }}: {{ num }}</li>
+            {% endwith %}
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "base2.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="card p-2" style="width: 22rem">
+<form method="post">
+    {% csrf_token %}
+    <div class="card-body">
+        <h2 class="card-title">Fazer Login</h2>
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            <input type="text" class="form-control" id="{{ field.id_for_label }}" name="{{ field.name }}">
+            {% if field.errors %}
+                <div class="invalid-feedback">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <a  href="{% url 'register' %}" class="card-link">Nao tem conta? Registre-se aqui</a>
+    <button type="submit" class="btn btn-primary mt-2">Entrar</button>
+</div>
+</form>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Danfo&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <title>{% block title %}DjangoVogue{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+
+
+
+
+<!-- Estrutura do Modal -->
+<div class="modal fade position-absolute top-50 start-50 translate-middle" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Seus Pedidos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- O conteúdo será carregado aqui -->
+        <div id="modalContent"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Finalizar Compra</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <div class="container-fluid d-flex">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon text-dark"></span>
+        </button>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">DjangoVogue</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav d-flex justify-content-center gap-1">
+                    <form class="d-flex" role="search" onsubmit="handleSearch(event)">
+                        <input class="form-control me-2" type="search" id="search-input" placeholder="O que Procura?" aria-label="Search">
+                        <button class="btn btn-outline-dark btn-sm rounded" type="submit">Procurar</button>
+                    </form>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Pagina Inicial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mais Vendidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn openModalBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">Meu Carrinho</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categorias
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'categoria' 'Vestido' %}">Vestido</a></li>
+                            <li><a class="dropdown-item" href="{% url 'categoria' 'Camisa' %}">Camisa</a></li>
+                            <li><a class="dropdown-item" href="{% url 'categoria' 'Short' %}">Short</a></li>
+                            <li><a class="dropdown-item" href="{% url 'categoria' 'Casaco' %}">Casaco</a></li>
+                            <li><a class="dropdown-item" href="{% url 'categoria' 'Outros' %}">Outros</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Em Breve...</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Olá, {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="">Dados de Usuario</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sair.</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Faça Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex">
+            <a class="navbar-brand" href="{% url 'index' %}">DjangoVogue</a>
+        </div>
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <span class="navbar-text">
+            Developed By @AlexandreAraujo01
+        </span>
+    </div>
+</nav>
+
+<script>
+  function handleSearch(event) {
+      event.preventDefault();
+      const searchInput = document.getElementById('search-input').value;
+      if (searchInput.trim() === '') {
+          return;
+      }
+      const searchUrl = `/pesquisa/${encodeURIComponent(searchInput)}/`;
+      window.location.href = searchUrl;
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    // Quando o botão for clicado
+    $(".openModalBtn").click(function() {
+        console.log("oi");
+        // Fazer uma requisição AJAX para a URL correspondente à TemplateView
+        $.ajax({
+            url: "{% url 'cart:cart_detail' %}",
+            type: "GET",
+            success: function(response) {
+                // Quando a requisição for bem-sucedida, carregar o conteúdo no modal
+                $("#modalContent").html(response);
+                // Exibir o modal
+                $("#myModal").modal('show');
+            },
+            error: function(xhr, status, error) {
+                // Lidar com erros, se houver
+                console.error("Erro ao carregar o conteúdo do modal:", status, error);
+            }
+        });
+    });
+
+    // Fechar o modal quando o usuário clicar no botão de fechar (×)
+    $(".btn-close").click(function() {
+        $("#myModal").modal('hide');
+
+    });
+});
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.add-to-cart-btn').click(function() {
+            var productId = $(this).data('product-id');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content'); // Obtenha o token CSRF do campo meta
+
+            $.ajax({
+                url: '/cart/add/' + productId + '/',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    'csrfmiddlewaretoken': csrfToken // Inclua o token CSRF nos dados da requisição
+                    , 'quantity' : 1
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Produto adicionado ao carrinho com sucesso!');
+                    } else {
+                        console.log(response, 'response 111')
+                        alert('Houve um erro ao adicionar o produto ao carrinho.111');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Erro ao adicionar o produto ao carrinho:', textStatus, errorThrown);
+                    alert('Houve um erro ao adicionar o produto ao carrinho. 222');
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
