@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<meta name="produtos" content="{{ produtos_json }}">
+
+<div class="container-fluid">
+    <div id="containerProducts" class="container-fluid overflow-auto m-0 d-flex-wrap justify-content-center row row-cols-2 gap-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6" style="max-height: 85vh">
+        {% for produto in produtos %}
+            <div class="card shadow-lg p-0 mb-5 bg-body-tertiary rounded position-relative opacity-hover" style="width: 22rem;">
+                <div class="content-wrapper">
+                    <img src="{{ produto.imagem.thumb.url }}" class="card-img-top" alt="{{ produto.nome }}" style="width: 100%; height: 370px; object-fit: cover;">
+                    <div class="card-body text-start m-0 p-3">
+                        <p class="card-text m-0">{{ produto.nome }}</p>
+                        <p class="card-text m-0">R$ {{ produto.preco }}</p>
+                        <p class="card-text m-0">{{ produto.numero_parcela }}x de {{ produto.parcela }}</p>
+                    </div>
+                </div>
+                <!-- Adicione um atributo data para armazenar o ID do produto -->
+                <button type="button" class="btn btn-outline-dark position-absolute top-50 start-50 translate-middle rounded add-to-cart-btn" data-product-id="{{ produto.id }}">
+                    Comprar
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="fixed-bottom d-flex justify-content-end p-5">
+        <div class="btn rounded-5 bg-black text-white" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#teste").click(function(event) {
+        let productsString = $('meta[name="produtos"]').attr('content');
+        // console.log(productsString)
+        // Convertendo a string JSON para um objeto JavaScript
+        let products = JSON.parse(productsString);
+        products.sort((a,b) => a.fields.preco - b.fields.preco)
+        console.log(products)
+    });
+</script>
+
+
+{% endblock %}
