@@ -74,8 +74,6 @@ class SearchFilterView(TemplateView):
             produtos = Produto.objects.filter(nome__icontains=nome_pesquisa)
         context["produtos"] = produtos
         return context
-<<<<<<< HEAD
-=======
 
 
 class ApplyFilterView(View):
@@ -113,13 +111,8 @@ class ApplyFilterView(View):
             return JsonResponse({'success': True, 'produtos': produtos, 'parcelas': parcelas})
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'error': 'Invalid JSON'}, status=400)
->>>>>>> retomando_projeto
     
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> retomando_projeto
 # Create your views here.
