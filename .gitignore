@@ -1,0 +1,36 @@
+# Arquivos de ambiente virtual (venv, virtualenv, env)
+venv/
+env/
+
+# Arquivos de configuração do IDE (por exemplo, PyCharm)
+.idea/
+
+# Arquivos de cache e compilação Python
+__pycache__/
+*.pyc
+
+# Arquivos gerados pelo sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de log
+*.log
+
+# Arquivos de backup
+*.bak
+*.swp
+
+# Arquivos específicos do Django
+db.sqlite3
+/media/
+/static/
+
+# Arquivos de configuração sensíveis (NÃO adicione ao repositório)
+*.env
+
+# Arquivos de dependências Python (gerenciador de pacotes)
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Arquivos de resultados de testes
+.coverage
