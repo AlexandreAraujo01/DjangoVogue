@@ -14,6 +14,12 @@ a {
     text-decoration: none;
 }
 
+/* Media Query */
+@media (max-width: 500px) {
+  .footer {
+      display: none !important;
+  }
+}
 
 /* Aplica a opacidade ao conteúdo quando o card é hoverado */
 .opacity-hover:hover .content-wrapper {

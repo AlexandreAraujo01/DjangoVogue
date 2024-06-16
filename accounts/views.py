@@ -12,12 +12,30 @@ from .forms import LoginForm, RegisterForm
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
+<<<<<<< HEAD
+=======
+from core.models import Produto
+
+>>>>>>> retomando_projeto
 
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
     success_url = reverse_lazy('index')
 
+<<<<<<< HEAD
+=======
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #context['imagens'] = Produto.objects.values_list('imagem', flat=True)
+        produtos = Produto.objects.all()
+        thumbs = [produto.imagem.thumb.url for produto in produtos]
+        context['thumb_urls'] = thumbs
+        context['first_thumb'] = thumbs[0]
+        return context
+
+
+>>>>>>> retomando_projeto
     def form_valid(self, form):
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
@@ -37,6 +55,19 @@ class LogoutView(DjangoLogoutView):
 class RegisterView(CreateView):
     template_name = 'register.html'
     form_class = RegisterForm
+<<<<<<< HEAD
+=======
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #context['imagens'] = Produto.objects.values_list('imagem', flat=True)
+        produtos = Produto.objects.all()
+        thumbs = [produto.imagem.thumb.url for produto in produtos]
+        context['thumb_urls'] = thumbs
+        context['first_thumb'] = thumbs[0]
+        return context
+        
+>>>>>>> retomando_projeto
     success_url = reverse_lazy('login')
 
 

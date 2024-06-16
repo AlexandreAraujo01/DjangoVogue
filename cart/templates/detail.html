@@ -1,35 +1,5 @@
 
 
-
-{% comment %} <table class="table">
-    <thead>
-        <tr class="p-1" style="vertical-align: middle; text-align: center;">
-            <th class="p-1">Produto</th>
-            <th class="p-1" style="vertical-align: middle; text-align: center;">Preço</th>
-            <th class="p-1" style="vertical-align: middle; text-align: center;" >Quantidade</th>
-            <th class="p-1" style="vertical-align: middle; text-align: center;">Total</th>
-            <th class="p-1" style="vertical-align: middle; text-align: center;">Ação</th>
-        </tr>
-    </thead>
-    <tbody class="table-group-divider">
-        {% for item in cart %}
-            <tr class="p-1">
-                <td class="p-1"><img src="{{ item.product.imagem.thumb.url }}" alt="{{ item.product.name }}" style="width: 250px; height: 300px; object-fit: cover;"></td>
-                <td class="p-1" style="vertical-align: middle; text-align: center;">{{ item.price }}</td>
-                <td class="p-1" style="vertical-align: middle; text-align: center;">{{ item.quantity }}</td>
-                <td class="p-1" style="vertical-align: middle; text-align: center;">{{ item.total_price }}</td>
-                <td class="p-1" style="vertical-align: middle; text-align: center;">
-                    <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" class="btn-sm btn-outline-danger" value="Remover">
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-  </table> {% endcomment %}
-
-
 {% block content %}
 
     {% for item in cart %}

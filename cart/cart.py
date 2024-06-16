@@ -21,6 +21,19 @@ class Cart:
             self.cart[product_id]['quantity'] += quantity
         self.save()
 
+    def decrement(self, product, quantity=1, update_quantity=False):
+        product_id = str(product.id)
+        if product_id not in self.cart:
+            self.cart[product_id] = {'quantity': 1, 'price': str(product.preco)}
+        if update_quantity:
+            self.cart[product_id]['quantity'] = quantity
+        else:
+            if self.cart[product_id]['quantity'] - quantity <= 0:
+                self.remove(product)
+            else:
+                self.cart[product_id]['quantity'] -= quantity
+            self.save()
+
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
