@@ -33,7 +33,7 @@
 
 
 <!-- Modal Filtro-->
-<div class="modal fade position-absolute top-50 start-50 translate-middle"  data-bs-backdrop="static" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade position-absolute top-50 start-50 translate-middle"  data-bs-backdrop="static" id="modalFiltro" tabindex="-1" aria-labelledby="ModalLabelFiltro" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -57,11 +57,11 @@
   </div>
 
 <!-- Modal Carrinho Compras -->
-<div class="modal fade position-absolute top-50 start-50 translate-middle" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade position-absolute top-50 start-50 translate-middle" id="ModalCart" tabindex="-1" aria-labelledby="ModalLabelFiltro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Seus Pedidos</h5>
+          <h5 class="modal-title" id="ModalLabelFiltro">Seus Pedidos</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -95,7 +95,7 @@
                         <a class="nav-link" href="{% url 'index' %}">Pagina Inicial</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link openModalBtn" data-bs-toggle="modal"  data-bs-target="#exampleModal" href="#">Meu Carrinho</a>
+                        <a class="nav-link openModalBtn" data-bs-toggle="modal"  data-bs-target="#ModalCart" href="#">Meu Carrinho</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -139,7 +139,7 @@
 {% block content %}
 {% endblock %}
 
-<nav class="navbar bg-body-tertiary footer">
+<nav class="fixed-bottom navbar bg-body-tertiary footer">
     <div class="container-fluid m-0">
         <span class="navbar-text">
             Developed By  @AlexandreAraujo01 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
@@ -180,7 +180,7 @@
                         let modalFather = $("#modalContent");
                         let final_value_cart = 0
                         modalFather.empty(); // Limpa o conteúdo anterior do modal
-                        console.log(response.cart);
+                        // console.log(response.cart);
                         cart.forEach((product) => {
                             // Soma dos valores para valor final do Carrinho!
                             final_value_cart += parseFloat(product.total_price)
@@ -212,7 +212,7 @@
                         let stringInstallments = final_value_cart >= 300 ? `4x de R$ ${Math.round(final_value_cart/4).toString().replace('.', ',')}` 
                         : `2x de ${Math.round(final_value_cart/2).toString().replace('.', ',')}`
                         final_value_cart > 0 ?
-                            modalFather.append(`<p class ="card-text">Valor Final:  R$ ${final_value_cart.toString().replace('.', ',')}<br>${stringInstallments}</p>`)
+                            modalFather.append(`<p class ="card-text">Valor Final:  R$ ${Math.round(final_value_cart,2).toString().replace('.', ',')}<br>${stringInstallments}</p>`)
                         :
                             modalFather.append(`<p class ="card-text">Seus Produtos Serão Disponibilizados aqui</p>`)
                         attachHandlers(); // Anexa os manipuladores de eventos para os botões de remover e adicionar
@@ -259,7 +259,7 @@
             event.preventDefault();
             let button = $(this);
             let productId = button.data('product-id');
-            console.log(productId, button)
+            //console.log(productId, button)
             let csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
@@ -291,7 +291,7 @@
             event.preventDefault();
             let button = $(this);
             let productId = button.data('product-id');
-            console.log(productId, button)
+            //console.log(productId, button)
             let csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
@@ -346,7 +346,7 @@
             let containerProducts = $(`#containerProducts`)
             let path = window.location.pathname;
             let url_type = path.split('/').filter(segment => segment !== '').pop() ? path.split('/').filter(segment => segment !== '').pop() : null
-            console.log(url_type, 'url type')
+            //console.log(url_type, 'url type')
 
             
             $.ajax({

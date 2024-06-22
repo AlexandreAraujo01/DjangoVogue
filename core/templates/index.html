@@ -23,7 +23,8 @@
         {% endfor %}
     </div>
     <div class="fixed-bottom d-flex justify-content-end p-5">
-        <div class="btn rounded-5 bg-black text-white" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        {% comment %} BOTA DE FILTRO! {% endcomment %}
+        <div class="btn rounded-5 bg-black text-white" data-bs-toggle="modal" data-bs-target="#modalFiltro">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
             </svg>
@@ -32,16 +33,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $("#teste").click(function(event) {
-        let productsString = $('meta[name="produtos"]').attr('content');
-        // console.log(productsString)
-        // Convertendo a string JSON para um objeto JavaScript
-        let products = JSON.parse(productsString);
-        products.sort((a,b) => a.fields.preco - b.fields.preco)
-        console.log(products)
-    });
-</script>
+
 
 
 {% endblock %}
