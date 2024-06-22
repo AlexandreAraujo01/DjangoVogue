@@ -71,9 +71,6 @@ class CartProductsView(View):
             })
         final_price =  str(sum([float(item['total_price']) for item in cart_items]))
 
-        return JsonResponse({'success': True, 'cart': cart_items, 'final_price': final_price})
+        return JsonResponse({'success': True, 'cart': cart_items, 'final_price': final_price, "items_number": len(cart)})
     
-
-def empty_view_add(request):
-    return HttpResponse('')
  
