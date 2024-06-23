@@ -1,10 +1,3 @@
-
-/* .opacity-hover:hover .content-wrapper {
-    opacity: 0.75;
-} */
-
-
-
 body {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
     font-weight: 400;
@@ -22,9 +15,6 @@ a {
 }
 
 /* Aplica a opacidade ao conteúdo quando o card é hoverado */
-.opacity-hover:hover .content-wrapper {
-    opacity: 0.75;
-}
 
 
 /* Mostra o botão quando o card é hoverado */
@@ -33,10 +23,27 @@ a {
 }
 
 
+.opacity-hover .content-wrapper {
+  background-color: rgba(0, 0, 0, 0); /* Sem fundo inicialmente */
+  transition: background-color 0.3s ease; /* Transição suave */
+}
+
+.opacity-hover:hover .content-wrapper {
+  background-color: rgba(0, 0, 0, 0.25); /* Fundo preto com 75% de opacidade ao passar o mouse */
+}
+
+.opacity-hover .content-wrapper img {
+  transition: filter 0.3s ease; /* Transição suave para o efeito */
+}
+
+.opacity-hover:hover .content-wrapper img {
+  filter: brightness(75%); /* Reduz o brilho da imagem para 50% */
+}
+
 
 
 .modal-content{
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 1.0);
 }
 
 
