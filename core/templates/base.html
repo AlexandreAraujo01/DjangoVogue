@@ -33,7 +33,7 @@
 
 
 <!-- Modal Filtro-->
-<div class="modal fade position-absolute top-50 start-50 translate-middle"  data-bs-backdrop="static" id="modalFiltro" tabindex="-1" aria-labelledby="ModalLabelFiltro" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade position-absolute top-50 start-0 translate-middle-y"  data-bs-backdrop="static" id="modalFiltro" tabindex="-1" aria-labelledby="ModalLabelFiltro" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -57,7 +57,7 @@
   </div>
 
 <!-- Modal Carrinho Compras -->
-<div class="modal fade position-absolute top-50 start-50 translate-middle" id="ModalCart" tabindex="-1" aria-labelledby="ModalLabelFiltro" aria-hidden="true">
+<div class="modal fade position-absolute top-50 start-0 translate-middle-y" id="ModalCart" tabindex="-1" aria-labelledby="ModalLabelFiltro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -196,7 +196,7 @@
                         modalFather.empty(); // Limpa o conteúdo anterior do modal
                         // console.log(response.cart);
                         let cart_btn_modal = $("#cart_number_item")
-                        cart_btn_modal.html(`${items_number}`);
+                        cart_btn_modal.html(`${items_number}`); //altera o numero de produtos no icone do carrinho
                         cart.forEach((product) => {
                             // Soma dos valores para valor final do Carrinho!
                             final_value_cart += parseFloat(product.total_price)

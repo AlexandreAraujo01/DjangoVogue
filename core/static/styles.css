@@ -26,10 +26,13 @@ a {
     opacity: 0.75;
 }
 
+
 /* Mostra o botão quando o card é hoverado */
 .opacity-hover:hover .add-to-cart-btn {
     display: block !important;
 }
+
+
 
 
 .modal-content{
